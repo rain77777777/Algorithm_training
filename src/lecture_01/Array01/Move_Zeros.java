@@ -114,7 +114,6 @@ public class Move_Zeros {
         for (int x : arr) {
             System.out.print(x + " ");
         }
-
     }
 
 }

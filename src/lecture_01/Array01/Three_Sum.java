@@ -35,6 +35,9 @@ public class Three_Sum {
         //2.sort+双指针法：降低复杂度变成twoSum
         _doublePoint(nums);
 
+        //3。sort+双指针法优化版
+        _doublePoint_Optimize(nums);
+
     }
 
     //1.暴力法 O(n^3)
@@ -86,6 +89,36 @@ public class Three_Sum {
                     while (i < j && nums[i] == nums[++i]) ;
                 } else if (nums[i] + nums[j] > 0 - nums[k]) {
                     while (i < j && nums[j] == nums[--j]) ;
+                }
+            }
+        }
+        for (List<Integer> x : res) {
+            System.out.println(x);
+        }
+    }
+
+    //3.优化版
+    public static void _doublePoint_Optimize(int[] nums) {
+        System.out.println("this is a method of _doublePoint_Optimize");
+        Arrays.sort(nums);
+        List<List<Integer>> res = new ArrayList<>();
+        for (int k = 0; k < nums.length; k++) {
+            if (k == 0 || k > 0 && nums[k] != nums[k - 1]) { //  无需再判断当k=0时，nums[k]是不是大于0，后面直接利用等式来判断是否成立，当k>0时，必须满足下一个值与当前值不相等，跳过重复值
+                int i = k + 1, j = nums.length - 1, sum = 0 - nums[k];
+                while (i < j) {
+                    if (nums[i] + nums[j] == sum) {
+                        res.add(new ArrayList<>(Arrays.asList(nums[i], nums[j], nums[k])));
+                        while (i < j && nums[i] == nums[i + 1]) i++;// 跳过重复的数字
+                        while (i < j && nums[j] == nums[j - 1]) j--;// 跳过重复的数字
+                        i++;
+                        j--;
+                    } else if (nums[i] + nums[j] < sum) {
+                        //while (i < j && nums[i] == nums[++i]) ;这里不需要重复再判断是否与前一个数相等，因为当前数已经不能让3个数成立，前面一个数即使与他相等也是不成立，还是可以筛选掉的
+                        i++;
+                    } else {
+                        //while (i < j && nums[j] == nums[--j]) ;
+                        j--;
+                    }
                 }
             }
         }
