@@ -9,6 +9,7 @@ import java.util.Scanner;
  * solution:
  * 1.暴力法：循环3次遍历来枚举
  * 2.双指针法：左右下标向中间推进，求得三数之和与target相减得绝对值得最小值
+ * 3.优化版：
  * <p>
  * sample:
  * input:nums = [-1,2,1,-4], target = 1
@@ -25,11 +26,17 @@ public class Three_Sum_Closest {
             nums[i] = sc.nextInt();
         }
 
+        // 1.双指针法
         _doublePoint(nums, target);
+
+        // 2.双指针法优化版
+        _doublePoint_Optimize(nums, target);
     }
 
+    // 1.双指针法
     public static void _doublePoint(int[] nums, int target) {
-        int res = nums[0] + nums[1] + nums[nums.length - 1];//原数组是无序的，随意取三个数加起来作为一个临时数值
+        System.out.println("双指针法");
+        int res = nums[0] + nums[1] + nums[nums.length - 1];//原数组是无序的，随意取三个数加起来作为一个临时数值，假设该值离target最近，再做修改
         Arrays.sort(nums);
         for (int k = 0; k < nums.length - 2; k++) { //定义双指针时候，这里的循环一定要确保不要超出范围，最后一个值已经被赋予给了变量，所以不需要遍历
             /*if (k == 0 || k > 0 && nums[k] == nums[k - 1]) {
@@ -48,6 +55,39 @@ public class Three_Sum_Closest {
                     res = sum;
                 }
             }
+        }
+        System.out.println("the number is :" + res);
+    }
+
+    // 2.双指针法优化版
+    public static void _doublePoint_Optimize(int[] nums, int target) {
+        System.out.println("优化版本");
+        int res = nums[0] + nums[1] + nums[nums.length - 1];
+        Arrays.sort(nums);
+        for (int k = 0; k < nums.length - 2; k++) {
+//            if (k > 0 && nums[k] == nums[k - 1]) {
+//                continue;
+//            }
+            int i = k + 1, j = nums.length - 1;
+            while (i < j) {
+                int sum = nums[i] + nums[j] + nums[k];
+                if (sum > target) {
+                    while (i < j && nums[j] == nums[j - 1]) {
+                        j--;
+                    }
+                    j--;
+                } else {
+                    while (i < j && nums[i] == nums[i + 1]) {
+                        i++;
+                    }
+                    i++;
+                }
+                if (Math.abs(sum - target) < Math.abs(res - target)) {
+                    res = sum;
+                }
+            }
+            while (k < nums.length - 2 && nums[k] == nums[k + 1])
+                k++;
         }
         System.out.println("the number is :" + res);
     }
