@@ -39,7 +39,7 @@ public class Move_Zeros {
     //1.两次loop(类似于冒泡法)
     public static void _violence(int[] arr) {
         System.out.println("this is a method of _violence");
-        //定义一个索引，在该索引处放非零元素
+        //定义一个索引，在该索引处放非零元素，相当于记录新数组中非零元素的索引
         int index = 0;
         for (int i = 0; i < arr.length; ++i) {
             if (arr[i] != 0) {
@@ -84,7 +84,7 @@ public class Move_Zeros {
     //3.index法（原数组操作）
     public static void _indexExchange(int[] arr) {
         System.out.println("this is a method of _indexExchange");
-        //  索引记录非零元素放在什么位置
+        //  索引记录后面非零元素将要放在前面有0元素的位置
 
         //  solution 1
         /*int index = 0;
