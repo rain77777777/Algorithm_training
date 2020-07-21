@@ -1,6 +1,11 @@
 package lecture_01.Linkedlist01;
 import java.util.Scanner;
 
+/**
+ * 构造链表，用来作测试
+ * createLinkedList是创建链表函数
+ * printLinkedList是打印链表函数
+ */
 public class ListNode {
     int val;
     ListNode next;
