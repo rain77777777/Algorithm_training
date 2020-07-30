@@ -7,10 +7,13 @@ import java.util.Scanner;
  * leetcode:https://leetcode-cn.com/problems/swap-nodes-in-pairs/
  * solution:
  * 1.递归法:
- *      主要考虑三要素：（1）终止条件：当前无节点或者只有当前这一个节点，即head == null或者head.next == null
- *                   （2）返回值是什么：每2个节点交换之后的子链表
- *                   （3）每个重复的小单元的功能：两个节点相互交换
+ * 主要考虑三要素：（1）终止条件：当前无节点或者只有当前这一个节点，即head == null或者head.next == null
+ * （2）返回值是什么：每2个节点交换之后的子链表
+ * （3）每个重复的小单元的功能：两个节点相互交换
  * 2.非递归法:
+ *  sample:
+ *  输入：1->2->3->4
+ *  输出：2->1->4->3
  */
 public class Swap_Pairs {
     public static void main(String[] args) {
@@ -23,13 +26,14 @@ public class Swap_Pairs {
         ListNode l1 = new ListNode();
         ListNode head = l1.createLinkedList(nums);
         l1.printLinkedList(head);
-        ListNode pre = _recursion_swapPairs(head);
+        //ListNode pre = _recursion_swapPairs(head);
+        ListNode pre = _nonrecursion_swapPairs(head);
         l1.printLinkedList(pre);
     }
 
     //1.递归法
     public static ListNode _recursion_swapPairs(ListNode head) {
-        if(head == null || head.next == null){
+        if (head == null || head.next == null) {
             return head;
         }
 
@@ -50,6 +54,18 @@ public class Swap_Pairs {
 
     //2.非递归法
     public static ListNode _nonrecursion_swapPairs(ListNode head) {
-        return null;
+        ListNode tmp = new ListNode(0);
+        tmp.next = head;
+        ListNode cur = tmp;
+        while (cur.next != null && cur.next.next != null) {
+            ListNode first = cur.next;
+            ListNode second = cur.next.next;
+            first.next = second.next;
+            cur.next = second;
+            cur.next.next = first;
+            cur = cur.next.next;
+        }
+        return tmp.next;
+
     }
 }
