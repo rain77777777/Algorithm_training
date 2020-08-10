@@ -7,6 +7,10 @@ import java.util.Scanner;
  * leetcode：https://leetcode-cn.com/problems/linked-list-cycle/
  * solution:
  * 1.双指针法（快慢指针）：定义2个指针，一个快指针和一个慢指针，每次慢指针走一步，快指针走两步，若有环的话，快指针最终会追上慢指针
+ * sample:
+ * input：head = [3,2,0,-4], pos = 1
+ * output：true
+ * explain：链表中有一个环，其尾部连接到第二个节点。
  */
 public class Has_Cycle {
     public static void main(String[] args) {
@@ -30,9 +34,9 @@ public class Has_Cycle {
         ListNode fast = head.next;
 
         while (fast != null && fast.next != null) {
-            if(fast == slow){
+            if (fast == slow) {
                 return true;
-            }else{
+            } else {
                 slow = slow.next;
                 fast = fast.next.next;
             }
